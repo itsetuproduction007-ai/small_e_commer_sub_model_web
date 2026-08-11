@@ -1,5 +1,15 @@
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import UspStrip from '@/components/UspStrip'
+import HeroSlideshow from '@/components/HeroSlideshow'
+import CategorySection from '@/components/CategorySection'
+import FeaturedProductsSection from '@/components/FeaturedProductsSection'
+import HeritageBanner from '@/components/HeritageBanner'
+import LookbookSection from '@/components/LookbookSection'
+import TestimonialsSection from '@/components/TestimonialsSection'
+import StorySection from '@/components/StorySection'
+import InstagramBanner from '@/components/InstagramBanner'
+import WhatsAppCta from '@/components/WhatsAppCta'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 
@@ -14,38 +24,11 @@ export default function HomePage() {
       <Navbar />
 
       <main>
-        {/* Hero Section */}
-        <section className="hero-section" aria-labelledby="hero-heading">
-          <div className="container" style={{ padding: 'var(--space-20) var(--space-6)' }}>
-            <div style={{ maxWidth: 640, margin: '0 auto', textAlign: 'center' }}>
-              <span className="page-hero-eyebrow">New Collection Available</span>
-              <h1 id="hero-heading" style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
-                fontWeight: 700,
-                lineHeight: 1.1,
-                marginBottom: 'var(--space-6)',
-                background: 'linear-gradient(135deg, hsl(340,70%,18%), hsl(340,65%,30%), hsl(35,80%,42%))',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}>
-                Colours That Tell Stories
-              </h1>
-              <p style={{ fontSize: 'var(--text-lg)', marginBottom: 'var(--space-8)', color: 'var(--color-text-secondary)' }}>
-                Handpicked sarees and Indian ethnic wear. Each piece discovered on Instagram, each thread chosen with care.
-              </p>
-              <div style={{ display: 'flex', gap: 'var(--space-4)', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <Link href="/shop" className="btn btn-primary btn-lg" id="hero-shop-btn">
-                  Shop the Collection
-                </Link>
-                <Link href="/track" className="btn btn-outline btn-lg" id="hero-track-btn">
-                  Track My Order
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* USP Strip */}
+        <UspStrip />
+
+        {/* Hero Slideshow */}
+        <HeroSlideshow />
 
         {/* Instagram Journey Section */}
         <section aria-labelledby="instagram-heading" style={{ padding: 'var(--space-16) 0', background: 'var(--color-bg-subtle)' }}>
@@ -90,6 +73,24 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* Shop by Category */}
+        <CategorySection />
+
+        {/* Best Sellers & Signature Pieces */}
+        <FeaturedProductsSection />
+
+        {/* Heritage / Lifestyle Banner */}
+        <HeritageBanner />
+
+        {/* Seasonal Lookbook */}
+        <LookbookSection />
+
+        {/* Testimonials */}
+        <TestimonialsSection />
+
+        {/* Brand Story */}
+        <StorySection />
 
         {/* Shop From Instagram CTA */}
         <section aria-labelledby="code-search-heading" style={{ padding: 'var(--space-16) 0' }}>
