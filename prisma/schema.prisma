@@ -1,0 +1,98 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+model Product {
+  id           String      @id @default(cuid())
+  code         String      @unique // e.g., RER-SAR-001
+  name         String
+  description  String?
+  price        Float
+  stock        Int         @default(0)
+  images       String[]
+  instagramUrl String?     // Link to original Instagram post
+  fabric       String?
+  length       String?
+  blousePiece  Boolean     @default(false)
+  isPublished  Boolean     @default(true)
+  isDraft      Boolean     @default(false)  // for Instagram import drafts
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  orderItems   OrderItem[]
+}
+
+model Customer {
+  id        String   @id @default(cuid())
+  code      String   @unique // e.g., CUS-0042
+  name      String
+  phone     String
+  email     String?
+  address   String
+  pincode   String
+  city      String?
+  state     String?
+  orders    Order[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id            String      @id @default(cuid())
+  orderCode     String      @unique // e.g., RER-ORD-1025
+  customerId    String
+  customer      Customer    @relation(fields: [customerId], references: [id])
+  status        OrderStatus @default(PENDING)
+  totalAmount   Float
+  paymentRef    String?     // UPI Transaction ID entered by customer
+  paymentStatus PaymentStatus @default(UNPAID)
+  trackingToken String      @unique // for /track/<token>
+  staffToken    String      @unique // for /sales/order/<token>
+  notes         String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  items         OrderItem[]
+  statusHistory OrderStatusHistory[]
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int     @default(1)
+  price     Float   // Snapshot of price at time of purchase
+}
+
+model OrderStatusHistory {
+  id        String      @id @default(cuid())
+  orderId   String
+  order     Order       @relation(fields: [orderId], references: [id])
+  status    OrderStatus
+  note      String?
+  createdAt DateTime    @default(now())
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PACKED
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  UNPAID
+  PENDING_VERIFICATION
+  PAID
+  REFUNDED
+}
