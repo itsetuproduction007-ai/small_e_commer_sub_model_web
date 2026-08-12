@@ -1,6 +1,14 @@
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import Button from '@/components/Button'
+import UspStrip from '@/components/UspStrip'
+import HeroSlideshow from '@/components/HeroSlideshow'
+import CategorySection from '@/components/CategorySection'
+import FeaturedProductsSection from '@/components/FeaturedProductsSection'
+import HeritageBanner from '@/components/HeritageBanner'
+import LookbookSection from '@/components/LookbookSection'
+import TestimonialsSection from '@/components/TestimonialsSection'
+import StorySection from '@/components/StorySection'
+import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -9,65 +17,121 @@ export const metadata: Metadata = {
 }
 
 export default function HomePage() {
-  const steps = [
-    { num: 1, icon: '📸', desc: 'Currently, managing Instagram DM sales involves typing codes, sharing UPI, checking stock, and answering availability.' },
-    { num: 2, icon: '🤖', desc: 'An automated web store that connects with your Instagram, making instant sales while retaining your personal touch.' },
-    { num: 3, icon: '🔍', desc: 'An automated web store that connects with your Instagram, enabling manual tracking while replacing chaotic DMs.' },
-    { num: 4, icon: '🛍️', desc: 'An automated web store that connects with your Instagram post. Customers just enter the code.' },
-    { num: 5, icon: '✅', desc: 'Automated web store reduces manual workload while making tracking easier.' },
-  ]
-
   return (
     <>
       <Navbar />
 
-      <main className="min-h-screen bg-background pb-24">
-        {/* Hero Section */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-gray-900 tracking-tight mb-8">
-            Colours That Tell Stories
-          </h1>
-          
-          <Button variant="primary" size="lg" className="mb-8">
-            Shop the Collection
-          </Button>
-          
-          <p className="max-w-2xl mx-auto text-lg text-gray-700 font-sans leading-relaxed">
-            Welcome, Rang E Renju Team! We're excited to show you the new custom e-commerce platform we've built, focusing on speed, usability, and beautiful design.
-          </p>
+      <main>
+        {/* USP Strip */}
+        <UspStrip />
+
+        {/* Hero Slideshow */}
+        <HeroSlideshow />
+
+        {/* Instagram Journey Section */}
+        <section aria-labelledby="instagram-heading" style={{ padding: 'var(--space-16) 0', background: 'var(--color-bg-subtle)' }}>
+          <div className="container" style={{ textAlign: 'center' }}>
+            <span className="page-hero-eyebrow">How It Works</span>
+            <h2 id="instagram-heading" style={{ marginBottom: 'var(--space-4)', fontFamily: 'var(--font-display)' }}>
+              From Instagram to Your Door
+            </h2>
+            <p style={{ marginBottom: 'var(--space-12)', maxWidth: 480, margin: '0 auto var(--space-12)' }}>
+              Spot something beautiful on our Instagram? Here&apos;s how to make it yours.
+            </p>
+
+            <div className="stagger-children" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 'var(--space-6)', textAlign: 'left' }}>
+              {[
+                { step: '01', icon: '📸', title: 'Discover on Instagram', desc: 'See a saree you love in our post or reel.' },
+                { step: '02', icon: '🔍', title: 'Find the Product Code', desc: 'Note the code in the caption, e.g. RER-SAR-001.' },
+                { step: '03', icon: '🛍️', title: 'Shop From Instagram', desc: 'Tap the bio link and find your exact product instantly.' },
+                { step: '04', icon: '💳', title: 'Pay via UPI', desc: 'Easy UPI payment — no account needed.' },
+                { step: '05', icon: '📦', title: 'Track Your Order', desc: 'Get a tracking link on WhatsApp. Follow every step.' },
+              ].map((item) => (
+                <div key={item.step} className="card card-body" style={{ position: 'relative' }}>
+                  <div style={{
+                    position: 'absolute', top: 'var(--space-4)', right: 'var(--space-4)',
+                    fontSize: 'var(--text-xs)', fontWeight: 700, color: 'var(--color-brand-accent-dark)',
+                    fontFamily: 'monospace', letterSpacing: '0.08em',
+                  }}>
+                    {item.step}
+                  </div>
+                  <div style={{ fontSize: '2rem', marginBottom: 'var(--space-3)' }}>{item.icon}</div>
+                  <h3 style={{ fontSize: 'var(--text-base)', fontFamily: 'var(--font-body)', fontWeight: 600, marginBottom: 'var(--space-2)', color: 'var(--color-text-primary)' }}>
+                    {item.title}
+                  </h3>
+                  <p style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-secondary)', lineHeight: 1.5 }}>{item.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ marginTop: 'var(--space-10)' }}>
+              <Link href="/shop" className="btn btn-primary" id="how-it-works-shop-btn">
+                Browse the Collection →
+              </Link>
+            </div>
+          </div>
         </section>
 
-        {/* How It Works Section */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
-          <div className="mb-10 flex flex-col md:flex-row items-center gap-4">
-            <h2 className="text-2xl md:text-3xl font-serif font-bold text-gray-900 flex items-center gap-3">
-              <span className="text-brand">→</span> The Current Journey
-            </h2>
-            <div className="hidden md:block h-px flex-1 bg-gray-200 ml-4"></div>
-          </div>
-          
-          <h3 className="text-xl font-bold font-sans text-gray-900 mb-6">
-            How It Works:
-          </h3>
+        {/* Shop by Category */}
+        <CategorySection />
 
-          {/* Horizontally scrolling container on mobile, grid on desktop */}
-          <div className="flex overflow-x-auto pb-8 -mx-4 px-4 snap-x snap-mandatory md:grid md:grid-cols-5 md:overflow-visible md:pb-0 md:mx-0 md:px-0 gap-6 hide-scrollbar">
-            {steps.map((step) => (
-              <div 
-                key={step.num}
-                className="flex-none w-72 md:w-auto bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col items-center text-center snap-center hover:shadow-md transition-shadow duration-300"
-              >
-                <div className="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center text-xl mb-4 text-brand">
-                  {step.icon}
+        {/* Best Sellers & Signature Pieces */}
+        <FeaturedProductsSection />
+
+        {/* Heritage / Lifestyle Banner */}
+        <HeritageBanner />
+
+        {/* Seasonal Lookbook */}
+        <LookbookSection />
+
+        {/* Testimonials */}
+        <TestimonialsSection />
+
+        {/* Brand Story */}
+        <StorySection />
+
+        {/* Shop From Instagram CTA */}
+        <section aria-labelledby="code-search-heading" style={{ padding: 'var(--space-16) 0' }}>
+          <div className="container-narrow" style={{ textAlign: 'center' }}>
+            <h2 id="code-search-heading" style={{ marginBottom: 'var(--space-4)' }}>
+              Have a Product Code?
+            </h2>
+            <p style={{ marginBottom: 'var(--space-8)' }}>
+              Enter the code from the Instagram caption to jump straight to the product.
+            </p>
+            <form action="/shop" method="get" style={{ display: 'flex', gap: 'var(--space-3)', maxWidth: 400, margin: '0 auto' }}>
+              <input
+                type="text"
+                name="code"
+                className="form-input"
+                placeholder="e.g. RER-SAR-001"
+                aria-label="Product code"
+                id="homepage-code-input"
+                style={{ fontFamily: 'monospace', letterSpacing: '0.05em', textTransform: 'uppercase' }}
+              />
+              <button type="submit" className="btn btn-accent" id="homepage-code-search-btn" style={{ whiteSpace: 'nowrap' }}>
+                Find It →
+              </button>
+            </form>
+          </div>
+        </section>
+
+        {/* Trust Signals */}
+        <section aria-label="Trust signals" style={{ padding: 'var(--space-12) 0', background: 'var(--color-bg-subtle)', borderTop: '1px solid var(--color-border)' }}>
+          <div className="container">
+            <div style={{ display: 'flex', justifyContent: 'center', gap: 'var(--space-12)', flexWrap: 'wrap', textAlign: 'center' }}>
+              {[
+                { icon: '🚚', label: 'Pan India Shipping' },
+                { icon: '💎', label: 'Handpicked Quality' },
+                { icon: '📱', label: 'WhatsApp Support' },
+                { icon: '🔒', label: 'Secure UPI Payment' },
+              ].map((item) => (
+                <div key={item.label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-2)' }}>
+                  <span style={{ fontSize: '1.75rem' }}>{item.icon}</span>
+                  <span style={{ fontSize: 'var(--text-sm)', fontWeight: 600, color: 'var(--color-text-primary)' }}>{item.label}</span>
                 </div>
-                <h4 className="text-brand font-bold font-serif mb-3 tracking-wide">
-                  Step {step.num}
-                </h4>
-                <p className="text-sm text-gray-600 font-sans leading-relaxed">
-                  {step.desc}
-                </p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </section>
       </main>
